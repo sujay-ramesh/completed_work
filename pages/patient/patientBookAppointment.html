@@ -1,0 +1,918 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>Medicore </title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+  <link href="../../assets/css/style.css" rel="stylesheet">
+
+  <style>
+
+    .header-nav .dropdown-menu {
+    z-index: 9999 !important;
+    }
+
+    .header {
+    z-index: 1000 !important;
+    }
+
+    /* Ensure dropdowns appear above other content */
+    .dropdown-menu {
+    z-index: 1050 !important;
+    }
+
+    /* Fix notification dropdown positioning */
+    .notifications {
+    min-width: 320px !important;
+    }
+
+    /* Fix profile dropdown */
+    .profile {
+    min-width: 250px !important;
+    }
+    :root{
+      --primary:#0b6fbf;
+      --accent:#07a0f7;
+      --muted:#5a7180;
+      --yellow:#f7c948;
+      --badge-dark:#12313f;
+      --badge-light:#f5f8fa;
+    }
+
+    body{font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,Arial; background:#f5f7fb; color:#072a4b;}
+    .container-page{padding:18px 16px 60px;}
+    .navbar-brand{font-weight:700;color:var(--primary) !important;}
+
+    /* NEW Search Bar Styles */
+    .search-wrap-new {
+    position: relative;
+    width: 100%;
+    }
+
+    .search-input-new {
+    width: 100%;
+    min-height: 50px;
+    border-radius: 10px;
+    border: 2px solid #e6eef8;
+    padding: 12px 50px 12px 20px;
+    font-size: 15px;
+    transition: all 0.3s ease;
+    }
+
+    .search-input-new:focus {
+    border-color: var(--accent);
+    box-shadow: 0 4px 12px rgba(7, 160, 247, 0.15);
+    outline: none;
+    }
+
+    .search-icon-inside {
+    position: absolute;
+    right: 18px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--primary);
+    font-size: 18px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    }
+
+    .search-icon-inside:hover {
+    color: var(--accent);
+    transform: translateY(-50%) scale(1.15);
+    }
+
+    /* Remove old search styles (delete these if they exist) */
+    .search-wrap { display: none; }
+    .search-input { display: none; }
+    #searchBtn { display: none; }
+
+    .filters-panel { display: none !important; }
+
+    #mobileFiltersDrawer {
+      position: fixed;
+      top: 72px;
+      right: 12px;
+      width: calc(100% - 32px);
+      max-width: 360px;
+      height: calc(100% - 96px);
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 12px 32px rgba(7,40,80,0.12);
+      z-index: 1400;
+      overflow:auto;
+      padding: 14px;
+      display: none;
+    }
+
+    @media (min-width: 992px) {
+      .filters-panel { display: block !important; }
+      #mobileFiltersDrawer { display: none !important; }
+    }
+
+    #pageBlocker {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.35);
+      z-index: 1350;
+      touch-action: none;
+      -webkit-user-select: none;
+      user-select: none;
+    }
+
+    .filters-panel h6{font-size:13px; font-weight:700; color:var(--primary); margin-bottom:10px;}
+    .clear-filters{font-size:13px; color:var(--primary); cursor:pointer; text-decoration:underline;}
+    .filter-row label{cursor:pointer; font-size:14px; color:#123a4b;}
+
+    /* Doctor card */
+    .doc-card{
+      background:#fff; border:1px solid #e6eef8; border-radius:12px; padding:16px; margin-bottom:16px;
+      box-shadow:0 6px 18px rgba(11,111,191,0.03);
+      position:relative; overflow:visible;
+    }
+
+    .doc-left{ width:0; min-width:0; display:none; }
+
+    .doc-info .doc-name{font-size:18px; font-weight:800; color:#072a4b;}
+    .doc-info .doc-special{color:var(--primary); font-weight:700; margin-top:2px;}
+    .doc-meta{color:var(--muted); margin-top:8px; font-size:13px}
+    .doc-qual{color:#4a6670; font-size:13px}
+
+    .availability{display:flex;align-items:center;gap:8px;color:#234a5e;font-weight:700;margin-top:10px;font-size:13px}
+    .availability .fa-clock{color:#ff8c00;}
+
+    /* language badges */
+    .lang-badge{
+      display:inline-block; padding:4px 8px; border-radius:999px; margin-right:6px; margin-bottom:6px;
+      border:1px solid var(--badge-dark); color:var(--badge-dark); background:var(--badge-light); font-weight:600; font-size:12px;
+    }
+
+    /* Actions */
+    .action-row{display:flex; gap:8px; align-items:center; margin-top:6px;}
+    .btn-book{background:var(--yellow); color:#111; border-radius:8px; padding:9px 14px; font-weight:700; border:none; display:flex; align-items:center; gap:8px; cursor:pointer;}
+    .btn-book .btn-arrow{transition:transform .22s ease;}
+    .btn-book:hover .btn-arrow{transform:translateX(4px) rotate(20deg);}
+
+    .btn-call{background:var(--accent); color:#fff; border-radius:8px; padding:8px 12px; font-weight:700; border:none; margin-top:8px; display:inline-flex; align-items:center; gap:8px;}
+
+    /* Compact appointment panel (in-card) */
+    .appt-inline{
+      margin-top:12px; border:1px solid #d7eaf6; background:#fff; border-radius:10px; padding:12px;
+      box-shadow:0 8px 20px rgba(7,160,247,0.04); width:100%;
+    }
+    .appt-inline .panel-header{display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;}
+    .date-pill{min-width:58px;text-align:center;padding:6px 8px;border-radius:8px;cursor:pointer;border:1px solid transparent;color:#184a6b;font-size:13px;}
+    .date-pill.active{background:var(--accent); color:#fff;}
+    .slots-row{display:flex; gap:8px; flex-wrap:wrap;}
+    .slot{padding:8px 10px;border-radius:8px;border:1px solid #e1edf7;background:#fff;cursor:pointer;color:var(--accent); font-weight:700; font-size:13px;}
+    .slot.selected{background:var(--accent); color:#fff; border-color:transparent;}
+    .appt-confirm{background:var(--yellow); color:#111; font-weight:700; border:none; padding:9px 12px; border-radius:8px; cursor:pointer;}
+
+    /* small text */
+    .small-muted{color:#6d7f86;font-size:13px;}
+
+    /* Spinner + blur overlay centered */
+    .overlay-blur{
+      position:fixed; inset:0; background:rgba(255,255,255,0.55); backdrop-filter:blur(3px); display:flex;
+      align-items:center; justify-content:center; z-index:1200; display:none;
+    }
+    .spinner-border-lg{width:72px; height:72px; border-width:8px;}
+
+    .appt-inline .dates-scroll {
+      display:flex;
+      gap:8px;
+      overflow-x:auto;
+      -webkit-overflow-scrolling:touch;
+      scroll-snap-type:x mandatory;
+      padding-bottom:6px;
+      white-space:nowrap;
+    }
+    .appt-inline .date-pill {
+      flex:0 0 auto;
+      scroll-snap-align:center;
+      min-width:58px;
+      text-align:center;
+      padding:6px 8px;
+      border-radius:8px;
+      cursor:pointer;
+      border:1px solid transparent;
+      color:#184a6b;
+      font-size:13px;
+    }
+    .appt-inline .date-pill.active {
+      background:var(--accent);
+      color:#fff;
+    }
+
+    .filters-dropdown{ display:none !important; }
+    @media (max-width: 991.98px){
+      .filters-dropdown{ display:inline-block !important; }
+    }
+
+    /* Confirmation Page Styles */
+    .confirmation-card {
+      background:#fff; 
+      border:1px solid #e6eef8; 
+      border-radius:12px; 
+      padding:24px; 
+      box-shadow:0 6px 18px rgba(11,111,191,0.08);
+    }
+    .detail-row {
+      padding:12px 0;
+      border-bottom:1px solid #f0f4f8;
+    }
+    .detail-row:last-child {
+      border-bottom:none;
+    }
+    .detail-label {
+      font-weight:700;
+      color:var(--primary);
+      margin-bottom:4px;
+    }
+    .detail-value {
+      color:#072a4b;
+      font-size:15px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <header id="header" class="header fixed-top d-flex align-items-center">
+    <div class="d-flex align-items-center justify-content-between">
+      <a href="patientBookAppointment.html" class="logo d-flex align-items-center">
+        <img src="../../assets/img/logo.png" alt="">
+        <span class="d-none d-lg-block">Medicore</span>
+      </a>
+      <i class="bi bi-list toggle-sidebar-btn"></i>
+    </div>
+
+    <nav class="header-nav ms-auto">
+      <ul class="d-flex align-items-center">
+        <li class="nav-item d-block d-lg-none">
+          <a class="nav-link nav-icon search-bar-toggle " href="#">
+            <i class="bi bi-search"></i>
+          </a>
+        </li>
+
+        <li class="nav-item dropdown">
+          <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
+            <i class="bi bi-bell"></i>
+            <span class="badge bg-primary badge-number">3</span>
+          </a>
+          <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow notifications">
+            <li class="dropdown-header">
+              You have 3 new notifications
+              <a href="patient-notification-page.html"><span class="badge rounded-pill bg-primary p-2 ms-2">View all</span></a>
+            </li>
+            <li><hr class="dropdown-divider"></li>
+            <li class="notification-item">
+              <i class="bi bi-info-circle text-primary"></i>
+              <div>
+                <h4>Profile Updated</h4>
+                <p>Dr. Mehta updated his contact details.</p>
+                <p>1 hr. ago</p>
+              </div>
+            </li>
+            <li><hr class="dropdown-divider"></li>
+            <li class="notification-item">
+              <i class="bi bi-x-circle text-danger"></i>
+              <div>
+                <h4>Appointment Cancelled</h4>
+                <p>Priya Sharma cancelled her appointment with Dr. Alice.</p>
+                <p>25 min. ago</p>
+              </div>
+            </li>
+            <li><hr class="dropdown-divider"></li>
+            <li class="notification-item">
+              <i class="bi bi-check-circle text-success"></i>
+              <div>
+                <div>
+                  <h4>Appointment Booked</h4>
+                  <p>Ravi Kumar booked an appointment with Dr. Mehta.</p>
+                  <p>15 min. ago</p>
+                </div>
+              </div>
+            </li>
+          </ul>
+        </li>
+
+        <li class="nav-item dropdown pe-3">
+          <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
+            <span class="d-none d-md-block dropdown-toggle ps-2">Dhanush</span>
+          </a>
+          <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
+            <li class="dropdown-header">
+              <h6>Dhanush</h6>
+              <span>esdhanush@gmail.com</span>
+            </li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item d-flex align-items-center" href="admin-my-profile.html"><i class="bi bi-person"></i><span>My Profile</span></a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item d-flex align-items-center" href="admin-my-profile.html"><i class="bi bi-gear"></i><span>Account Settings</span></a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item d-flex align-items-center" href="../login/patientLogin.html"><i class="bi bi-box-arrow-right"></i><span>Sign Out</span></a></li>
+          </ul>
+        </li>
+
+      </ul>
+    </nav>
+  </header>
+
+  <aside id="sidebar" class="sidebar">
+    <ul class="sidebar-nav" id="sidebar-nav">
+      <li class="nav-heading">Pages</li>
+      <li class="nav-item">
+        <a class="nav-link " href="patientBookAppointment.html">
+          <i class="ri ri-stethoscope-fill"></i>
+          <span>Book Appointment</span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="patientAppointments.html">
+          <i class="ri ri-health-book-line"></i>
+          <span>My Appointments</span>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="patientProfile.html">
+          <i class="ri ri-profile-line"></i>
+          <span>My Profile</span>
+        </a>
+      </li>
+    </ul>
+  </aside>
+
+  <main id="main" class="main">
+    <div class="pagetitle">
+      <h1>Book Appointments</h1>
+      <nav>
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="patientBookAppointment.html">Home</a></li>
+          <li class="breadcrumb-item active">Book Appointments</li>
+        </ol>
+      </nav>
+    </div>
+
+    <!-- MAIN BOOKING PAGE (Doctor List) -->
+    <div class="container container-page" id="mainBookingPage">
+      <!-- Search + filters dropdown (mobile) -->
+      <div class="row mb-3">
+        <div class="col-12 col-lg-10">
+            <div class="search-wrap-new">
+                <input id="globalSearch" class="form-control search-input-new" placeholder="Search doctors, specialties, hospitals, cities (e.g., cardiology, Dr. Naik, Jubilee Hills)" />
+                <i class="fa fa-search search-icon-inside" id="searchIcon"></i>
+            </div>
+        </div>
+
+        <div class="col-12 col-lg-4 text-lg-end mt-2 mt-lg-0">
+          <div class="filters-dropdown d-inline-block">
+            <div class="dropdown">
+              <button class="btn btn-outline-primary dropdown-toggle" type="button" id="mobileFiltersBtn" data-bs-toggle="dropdown" aria-expanded="false">
+                Filters
+              </button>
+              <div class="dropdown-menu p-3" style="min-width:320px;">
+                <div class="d-flex justify-content-between align-items-center mb-2">
+                  <strong>Filters</strong>
+                  <a class="clear-filters" id="clearFiltersMobile">CLEAR ALL</a>
+                </div>
+
+                <div class="mb-2">
+                  <h6 style="margin:0 0 8px 0">Specialization</h6>
+                  <div class="filter-row"><input type="checkbox" id="sp-cardiac-m" class="me-2" checked> <label for="sp-cardiac-m">Cardiac Sciences</label></div>
+                  <div class="filter-row"><input type="checkbox" id="sp-ortho-m" class="me-2"> <label for="sp-ortho-m">Orthopaedics</label></div>
+                </div>
+
+                <div class="mb-2">
+                  <h6 style="margin:0 0 8px 0">Select City</h6>
+                  <div class="filter-row"><input type="checkbox" id="city-chn-m" class="me-2" checked> <label for="city-chn-m">Chennai</label></div>
+                  <div class="filter-row"><input type="checkbox" id="city-hyd-m" class="me-2"> <label for="city-hyd-m">Hyderabad</label></div>
+                </div>
+
+                <div class="mb-2">
+                  <h6 style="margin:0 0 8px 0">Gender</h6>
+                  <div class="filter-row"><input type="checkbox" id="gender-m-m" class="me-2"> <label for="gender-m-m">Male</label></div>
+                  <div class="filter-row"><input type="checkbox" id="gender-f-m" class="me-2"> <label for="gender-f-m">Female</label></div>
+                </div>
+
+                <div>
+                  <h6 style="margin:0 0 8px 0">Language</h6>
+                  <div class="filter-row"><input type="checkbox" id="lang-en-m" class="me-2" checked> <label for="lang-en-m">English</label></div>
+                  <div class="filter-row"><input type="checkbox" id="lang-hi-m" class="me-2"> <label for="lang-hi-m">Hindi</label></div>
+                  <div class="filter-row"><input type="checkbox" id="lang-tel-m" class="me-2"> <label for="lang-tel-m">Telugu</label></div>
+                  <div class="filter-row"><input type="checkbox" id="lang-mr-m" class="me-2"> <label for="lang-mr-m">Marathi</label></div>
+                  <div class="filter-row"><input type="checkbox" id="lang-ur-m" class="me-2"> <label for="lang-ur-m">Urdu</label></div>
+                </div>
+
+                <div class="text-end mt-2">
+                  <button class="btn btn-primary btn-sm" id="applyMobileFilters">Apply</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row g-3">
+        <!-- Filters column (desktop) -->
+        <aside class="col-lg-3 filters-col">
+          <div class="filters-panel">
+            <div class="d-flex justify-content-between align-items-center mb-2">
+              <h5 style="font-size:16px;margin:0">Filters</h5>
+              <a class="clear-filters" id="clearFilters">CLEAR ALL</a>
+            </div>
+
+            <div class="mb-3">
+              <h6>Specialization</h6>
+              <div class="filter-row"><input type="checkbox" id="sp-cardiac" class="me-2" checked> <label for="sp-cardiac">Cardiac Sciences</label></div>
+              <div class="filter-row"><input type="checkbox" id="sp-anes" class="me-2"> <label for="sp-anes">Anaesthesiology</label></div>
+              <div class="filter-row"><input type="checkbox" id="sp-bari" class="me-2"> <label for="sp-bari">Bariatrics</label></div>
+              <div class="filter-row"><input type="checkbox" id="sp-dent" class="me-2"> <label for="sp-dent">Dentistry</label></div>
+            </div>
+
+            <div class="mb-3">
+              <h6>Select City</h6>
+              <div class="filter-row"><input type="checkbox" id="city-chn" class="me-2" checked> <label for="city-chn">Chennai</label></div>
+              <div class="filter-row"><input type="checkbox" id="city-hyd" class="me-2"> <label for="city-hyd">Hyderabad</label></div>
+              <div class="filter-row"><input type="checkbox" id="city-nd" class="me-2"> <label for="city-nd">New Delhi</label></div>
+            </div>
+
+            <div class="mb-3">
+              <h6>Gender</h6>
+              <div class="filter-row"><input type="checkbox" id="gender-m" class="me-2"> <label for="gender-m">Male</label></div>
+              <div class="filter-row"><input type="checkbox" id="gender-f" class="me-2"> <label for="gender-f">Female</label></div>
+            </div>
+
+            <div>
+              <h6>Language</h6>
+              <div class="filter-row"><input type="checkbox" id="lang-en" class="me-2" checked> <label for="lang-en">English</label></div>
+              <div class="filter-row"><input type="checkbox" id="lang-hi" class="me-2"> <label for="lang-hi">Hindi</label></div>
+              <div class="filter-row"><input type="checkbox" id="lang-tel" class="me-2"> <label for="lang-tel">Telugu</label></div>
+              <div class="filter-row"><input type="checkbox" id="lang-mr" class="me-2"> <label for="lang-mr">Marathi</label></div>
+              <div class="filter-row"><input type="checkbox" id="lang-ur" class="me-2"> <label for="lang-ur">Urdu</label></div>
+            </div>
+          </div>
+        </aside>
+
+        <!-- Doctor list -->
+        <main class="col-lg-9">
+          <div class="mb-3">
+            <h4 style="margin-bottom:0">286 doctors</h4>
+            <small class="small-muted">Showing results for Cardiac Sciences</small>
+          </div>
+
+          <!-- Doctor card 1 (Sudhir Naik) -->
+          <div class="doc-card" data-doctor-id="dr-sudhir-naik">
+            <div class="doc-info">
+              <div class="d-flex justify-content-between align-items-start">
+                <div>
+                  <div class="doc-name">Dr. Sudhir Naik</div>
+                  <div class="doc-special">Cardiac Sciences</div>
+
+                  <div class="doc-meta d-flex gap-3 flex-wrap" style="margin-top:8px;">
+                    <div>50+ Years experience</div>
+                    <div class="doc-qual">MBBS; MD (Internal Medicine); DM (Cardiology)</div>
+                  </div>
+                </div>
+
+                <div class="text-end">
+                  <div class="action-row">
+                    <button class="btn-book" title="Book appointment" data-toggle-appt>
+                      BOOK APPOINTMENT <i class="fa fa-arrow-right btn-arrow" aria-hidden="true"></i>
+                    </button>
+                  </div>
+
+                  <div class="mt-2 small-muted">Apollo Health City, Jubilee Hills</div>
+                </div>
+              </div>
+
+              <div class="mt-2">
+                <div class="availability"><i class="fa fa-clock me-1"></i> 11:00 - 12:00  •  Mon - Fri</div>
+
+                <div class="mt-2">
+                  <span class="lang-badge">English</span>
+                  <span class="lang-badge">Hindi</span>
+                  <span class="lang-badge">Telugu</span>
+                  <span class="lang-badge">Marathi</span>
+                  <span class="lang-badge">Urdu</span>
+                </div>
+
+                <div class="mt-2 small-muted">Consultation Hours: 9:30 - 19:00 • Mon - Sat</div>
+              </div>
+
+              <!-- appointment panel placeholder -->
+              <div class="appt-placeholder"></div>
+            </div>
+          </div>
+
+          <!-- Doctor card 2 (N Sastri) -->
+          <div class="doc-card" data-doctor-id="dr-n-sastri">
+            <div class="doc-info">
+              <div class="d-flex justify-content-between align-items-start">
+                <div>
+                  <div class="doc-name">Dr. N Sastri</div>
+                  <div class="doc-special">Cardiac Sciences</div>
+
+                  <div class="doc-meta d-flex gap-3 flex-wrap" style="margin-top:8px;">
+                    <div>47+ Years experience</div>
+                    <div class="doc-qual">MBBS, M.D (U.S.A.), MS, FHCS, FICS</div>
+                  </div>
+                </div>
+
+                <div class="text-end">
+                  <div class="action-row">
+                    <button class="btn-book" title="Book appointment" data-toggle-appt>
+                      BOOK APPOINTMENT <i class="fa fa-arrow-right btn-arrow" aria-hidden="true"></i>
+                    </button>
+                  </div>
+
+                  <div class="mt-2 small-muted">Apollo Hospitals, Delhi</div>
+                </div>
+              </div>
+
+              <div class="mt-2">
+                <div class="availability"><i class="fa fa-clock me-1"></i> 16:00 - 18:00  •  Mon - Sat</div>
+
+                <div class="mt-2">
+                  <span class="lang-badge">English</span>
+                  <span class="lang-badge">Hindi</span>
+                </div>
+
+                <div class="mt-2 small-muted">Consultation Hours: 16:00 - 18:00 • Mon - Sat</div>
+              </div>
+
+              <div class="appt-placeholder"></div>
+            </div>
+          </div>
+
+        </main>
+      </div>
+    </div>
+
+    <!-- CONFIRMATION PAGE (Hidden by default) -->
+    <div class="container container-page" id="confirmationPage" style="display:none;">
+      <div class="row justify-content-center">
+        <div class="col-lg-8">
+          <div class="confirmation-card">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+              <h3 style="margin:0; color:var(--primary);">Confirm Appointment</h3>
+            </div>
+
+            <div class="detail-row">
+              <div class="detail-label">Patient Name</div>
+              <div class="detail-value">Dhanush</div>
+            </div>
+
+            <div class="detail-row">
+              <div class="detail-label">Patient Email</div>
+              <div class="detail-value">esdhanush@gmail.com</div>
+            </div>
+
+            <div class="detail-row">
+              <div class="detail-label">Doctor</div>
+              <div class="detail-value" id="confirmDoctorName"></div>
+            </div>
+
+            <div class="detail-row">
+              <div class="detail-label">Specialization</div>
+              <div class="detail-value" id="confirmSpecialization"></div>
+            </div>
+
+            <div class="detail-row">
+              <div class="detail-label">Hospital</div>
+              <div class="detail-value" id="confirmHospital"></div>
+            </div>
+
+            <div class="detail-row">
+              <div class="detail-label">Appointment Date</div>
+              <div class="detail-value" id="confirmDate"></div>
+            </div>
+
+            <div class="detail-row">
+              <div class="detail-label">Appointment Time</div>
+              <div class="detail-value" id="confirmTime"></div>
+            </div>
+
+            <div class="detail-row">
+              <div class="detail-label">Notes</div>
+              <textarea class="form-control mt-2" id="confirmNotes" rows="3" placeholder="Add any notes or symptoms (optional)"></textarea>
+            </div>
+
+            <div class="d-flex justify-content-end gap-3 mt-4">
+              <button class="btn btn-outline-secondary btn-lg" id="cancelConfirmBtn">
+                <i class="fa fa-times me-2"></i>Cancel
+              </button>
+              <button class="btn btn-primary btn-lg" id="finalConfirmBtn">
+                <i class="fa fa-check me-2"></i>Confirm Appointment
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Spinner + blur overlay centered -->
+    <div class="overlay-blur" id="overlayBlur" aria-hidden="true">
+      <div class="text-center">
+        <div class="spinner-border text-primary spinner-border-lg" role="status" aria-hidden="true"></div>
+        <div class="mt-3">Applying filters...</div>
+      </div>
+    </div>
+
+  </main>
+
+  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+  <!-- Success Modal -->
+  <div class="modal fade" id="successModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content text-center p-4">
+        <div style="font-size:72px; color:#28a745;">
+          <i class="fa fa-check-circle"></i>
+        </div>
+        <h4 class="mt-3" style="color:#28a745; font-weight:700;">Appointment Booked Successfully!</h4>
+        <p class="text-muted mt-2">You will be redirected to the appointments page...</p>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="../../assets/js/sidebar.js"></script>
+  <script src="../../assets/js/main.js"></script>
+
+  <script>
+    $(function(){
+      // Global variable to store appointment data
+      // Initialize all Bootstrap dropdowns
+        var dropdownElementList = [].slice.call(document.querySelectorAll('[data-bs-toggle="dropdown"]'));
+        var dropdownList = dropdownElementList.map(function (dropdownToggleEl) {
+            return new bootstrap.Dropdown(dropdownToggleEl);
+        });
+
+        // Prevent mobile filter dropdown from closing when clicking inside
+        $('.dropdown-menu').on('click', function(e){
+            e.stopPropagation();
+        });
+
+        // Only close dropdown when Apply button is clicked
+        $('#applyMobileFilters').on('click', function(){
+            var dropdownEl = document.getElementById('mobileFiltersBtn');
+            var dropdown = bootstrap.Dropdown.getInstance(dropdownEl);
+            if(dropdown) dropdown.hide();
+            showOverlayFor3s();
+        });
+
+      var appointmentData = {};
+
+      // Spinner overlay helper
+      function showOverlayFor3s(){
+        $('#overlayBlur').fadeIn(120);
+        setTimeout(function(){ $('#overlayBlur').fadeOut(200); }, 3000);
+      }
+
+      // Desktop clear
+      $('#clearFilters').on('click', function(){
+        $('.filters-panel input[type="checkbox"]').prop('checked', false);
+        showOverlayFor3s();
+      });
+
+      // Mobile clear
+      $('#clearFiltersMobile').on('click', function(){
+        $('.dropdown-menu input[type="checkbox"]').prop('checked', false);
+      });
+
+      // Apply mobile filters (already handled above in initialization)
+      // This section can be removed as it's now in the initialization block
+
+      // Any desktop filter checkbox change triggers overlay
+      $('.filters-panel input[type="checkbox"]').on('change', function(){
+        showOverlayFor3s();
+      });
+
+      // Search highlight
+      // Search function
+        function performSearch(){
+        var q = $('#globalSearch').val().trim().toLowerCase();
+        if(!q){
+            $('#globalSearch').addClass('is-invalid');
+            setTimeout(()=>$('#globalSearch').removeClass('is-invalid'),800);
+            return;
+        }
+        
+        var found = false;
+        $('.doc-card').each(function(){
+            var txt = $(this).text().toLowerCase();
+            if(txt.indexOf(q) !== -1){
+            $(this).css('box-shadow','0 12px 34px rgba(7,160,247,0.12)');
+            if(!found){
+                $('html,body').animate({scrollTop: $(this).offset().top - 80}, 450);
+                found = true;
+            }
+            setTimeout(()=> $(this).css('box-shadow','0 6px 18px rgba(11,111,191,0.03)'),900);
+            }
+        });
+        }
+
+        // Search icon click
+        $('#searchIcon').on('click', function(){
+        performSearch();
+        });
+
+        // Search on Enter key
+        $('#globalSearch').on('keypress', function(e){
+        if(e.which === 13){
+            e.preventDefault();
+            performSearch();
+        }
+        });
+
+      // Toggle compact appointment panel inside card (ORIGINAL FUNCTIONALITY INTACT)
+      $(document).on('click', 'button[data-toggle-appt]', function(e){
+        e.stopPropagation();
+        var $btn = $(this);
+        var $card = $btn.closest('.doc-card');
+        var $placeholder = $card.find('.appt-placeholder');
+
+        // toggle off if exists
+        if($placeholder.children('.appt-inline').length){
+          $placeholder.slideUp(160, function(){ $placeholder.empty(); });
+          return;
+        }
+
+        // close others
+        $('.appt-placeholder').each(function(){
+          var $ph = $(this);
+          if($ph.children('.appt-inline').length){ $ph.slideUp(150, function(){ $ph.empty(); }); }
+        });
+
+        // build booking card panel
+        var doctorName = $card.find('.doc-name').text().trim();
+        var specialization = $card.find('.doc-special').text().trim();
+        var hospital = $card.find('.small-muted').first().text().trim() || 'Apollo Hospital';
+        
+        // Store doctor info globally
+        appointmentData.doctorName = doctorName;
+        appointmentData.specialization = specialization;
+        appointmentData.hospital = hospital;
+
+        var panel = $('<div class="appt-inline" role="region" aria-label="Appointment panel"></div>');
+
+        // header
+        panel.append('<div class="panel-header"><div><strong>' + doctorName + '</strong><div class="small-muted">' + specialization + ' • ' + hospital + '</div></div><div class="small-muted">SELECT DATE</div></div>');
+
+        // dates row (next 8 days)
+        var datesRow = $('<div class="dates-scroll mb-3"></div>');
+        var start = new Date();
+        for(var i=0;i<8;i++){
+          var d = new Date(start.getTime() + i*24*60*60*1000);
+          var dayShort = d.toLocaleString('en-US',{weekday:'short'});
+          var dayNum = d.getDate();
+          var pill = $('<div class="date-pill" data-date="'+d.toISOString()+'"><div style="font-size:12px">'+dayShort+'</div><div style="font-weight:700">'+dayNum+'</div></div>');
+          if(i===1) pill.addClass('active');
+          datesRow.append(pill);
+        }
+        panel.append(datesRow);
+
+        // ensure active pill is visible in the scroll container
+        setTimeout(function(){
+          var el = panel.find('.date-pill.active')[0];
+          if(el && el.scrollIntoView) el.scrollIntoView({behavior:'smooth', inline:'center', block:'nearest'});
+        }, 40);
+
+        // Available slots (sample slots; in real app these would come from API)
+        panel.append('<div class="small-muted mb-2">AVAILABLE SLOTS</div>');
+        var slotsWrap = $('<div class="slots-row mb-3"></div>');
+        var sampleSlots = ['10:30 AM','10:45 AM','11:00 AM','11:15 AM'];
+        sampleSlots.forEach(function(s,idx){
+          var slot = $('<div class="slot" data-slot="'+s+'">'+s+'</div>');
+          if(idx===2) slot.addClass('selected'); // highlight sample selection
+          slotsWrap.append(slot);
+        });
+        panel.append(slotsWrap);
+
+        // Book button row inside panel
+        panel.append('<div class="d-flex justify-content-end"><button class="appt-confirm" aria-label="Book appointment">BOOK APPOINTMENT <i class="fa fa-arrow-right ms-2 btn-arrow"></i></button></div>');
+
+        // inject and show
+        $placeholder.append(panel).hide().slideDown(160);
+
+        // interactions - date selection
+        panel.on('click', '.date-pill', function(ev){
+          ev.stopPropagation();
+          panel.find('.date-pill').removeClass('active');
+          $(this).addClass('active');
+          panel.find('.slot').removeClass('selected').first().addClass('selected');
+        });
+
+        // interactions - slot selection
+        panel.on('click', '.slot', function(ev){
+          ev.stopPropagation();
+          panel.find('.slot').removeClass('selected');
+          $(this).addClass('selected');
+        });
+
+        // NEW: When user clicks BOOK APPOINTMENT inside the inline panel, navigate to confirmation page
+        panel.on('click', '.appt-confirm', function(ev){
+          ev.stopPropagation();
+          
+          // Get selected date and time
+          var selDateISO = panel.find('.date-pill.active').attr('data-date');
+          var selDate = selDateISO ? new Date(selDateISO) : null;
+          var selSlot = panel.find('.slot.selected').attr('data-slot') || '';
+
+          // Store in global object
+          appointmentData.date = selDate;
+          appointmentData.dateString = selDate ? selDate.toDateString() : 'Not selected';
+          appointmentData.time = selSlot;
+
+          // Fill confirmation page with data
+          $('#confirmDoctorName').text(appointmentData.doctorName);
+          $('#confirmSpecialization').text(appointmentData.specialization);
+          $('#confirmHospital').text(appointmentData.hospital);
+          $('#confirmDate').text(appointmentData.dateString);
+          $('#confirmTime').text(appointmentData.time);
+          $('#confirmNotes').val(''); // Clear notes
+
+          // Hide main booking page, show confirmation page
+          $('#mainBookingPage').hide();
+          $('#confirmationPage').show();
+
+          // Scroll to top
+          $('html, body').animate({ scrollTop: 0 }, 300);
+        });
+      });
+
+      // Close panels on outside click
+      $(document).on('click', function(e){
+        if(!$(e.target).closest('.doc-card').length){
+          $('.appt-placeholder').each(function(){ 
+            if($(this).children().length){ 
+              $(this).slideUp(120, function(){ $(this).empty(); }); 
+            } 
+          });
+        }
+      });
+
+      // CANCEL button on confirmation page - go back to booking page
+      $('#cancelConfirmBtn').on('click', function(){
+        $('#confirmationPage').hide();
+        $('#mainBookingPage').show();
+        
+        // Scroll to top
+        $('html, body').animate({ scrollTop: 0 }, 300);
+      });
+
+      // CONFIRM button on confirmation page - show success modal then redirect
+      $('#finalConfirmBtn').on('click', function(){
+        // Get notes if any
+        var notes = $('#confirmNotes').val().trim();
+        appointmentData.notes = notes;
+
+        // Here you can send data to backend API
+        console.log("Booking appointment with data:", appointmentData);
+
+        // Show success modal
+        var successModal = new bootstrap.Modal(document.getElementById('successModal'));
+        successModal.show();
+
+        // After 3 seconds, hide modal and return to booking page
+        setTimeout(function(){
+          successModal.hide();
+          $('#confirmationPage').hide();
+          $('#mainBookingPage').show();
+          
+          // Scroll to top
+          $('html, body').animate({ scrollTop: 0 }, 300);
+
+          // Optional: Show a success message or refresh the page
+          // You could also redirect to "My Appointments" page here
+        }, 3000);
+      });
+
+      // CALL behavior (small modal on desktop)
+      $(document).on('click', '.btn-call', function(e){
+        e.stopPropagation();
+        var phone = '+91-40-1234-5678';
+        if(/Mobi|Android|iPhone/i.test(navigator.userAgent)){
+          window.location.href = 'tel:' + phone;
+        } else {
+          var $m = $('<div class="modal fade" tabindex="-1"><div class="modal-dialog modal-sm modal-dialog-centered"><div class="modal-content"><div class="modal-header"><h5 class="modal-title">Call Doctor</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body">Call ' + phone + '</div><div class="modal-footer"><a href="tel:'+phone+'" class="btn btn-primary">Call</a><button class="btn btn-secondary" data-bs-dismiss="modal">Close</button></div></div></div></div>');
+          $('body').append($m);
+          var bs = new bootstrap.Modal($m[0]); bs.show();
+          $m.on('hidden.bs.modal', function(){ $m.remove(); });
+        }
+      });
+    });
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta section class="section dashboard" id="home-intro-section" style="background-color: #ffffff;">  
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Patient Landing Page</title>
+<link href="../../assets/img/favicon.png" rel="icon">
+<link href="../../assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+<link href="../../assets/css/style.css" rel="stylesheet">
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+<link href="../../assets/css/style.css" rel="stylesheet">
+<script src="../../assets/js/main.js"></script>
+</head>
+<body>
+    <header id="header" class="header fixed-top d-flex align-items-center">
+    <div class="d-flex align-items-center justify-content-between">
+      <a href="index.html" class="logo d-flex align-items-center">
+        <span class="d-lg-block">Medicore</span>
+      </a>
+    </div>
+        <div class="header-nav d-lg-block d-none" id="main-nav-links">
+        <ul class="navbar-nav d-flex flex-row justify-content-between" style="margin: 90px; row-gap:0;">
+            <li class="nav-item">
+                <a class="nav-link" href="#home-intro-section">Home</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" style="margin-left:-40px;" href="#about-us-section">About</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" style="margin-left:-70px;" href="#doctors-team-section">Doctors</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" style="margin-left:-90px;" href="#departments-care-section">Departments</a>
+            </li> 
+        </ul>
+    </div>
+
+    <nav class="header-nav ms-auto">
+      <ul class="d-flex align-items-center">
+      <div class="dropdown">
+          <button class="btn btn-secondary me-3 dropdown-toggle" type="button" id="loginDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+            Login
+          </button>
+          <ul class="dropdown-menu" aria-labelledby="loginDropdown">
+            <li><a class="dropdown-item" href="../login/patientLogin.html">Patient Login</a></li>
+            <li><a class="dropdown-item" href="../login/adminDoctorLogin.html">Staff Login</a></li>
+          </ul>
+        </div>
+      </ul>
+    </nav>
+  </header>
+  <div class="row g-0">
+      <div class="col-md-6 d-flex align-items-center" style="background: #ffffff;">
+        <div class="p-5" style="color: #003366;">
+          <h1 class="display-4 mb-4">Consult a doctor anywhere anytime</h1>
+          <p class="lead mb-4">Find trusted doctors and schedule visits in just a few clicks.</p>
+          <a href="patientRegistration.html" class="btn btn-primary btn-lg">Get Started</a>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <img src="../../images/banner.png" alt="Doctor Banner" style="width: 100%; height: 600px; object-fit: cover;">
+      </div>
+    </div>
+<section class="section dashboard" id="home-intro-section" >  
+
+
+
+   <section class="section main-about p-5 mt-3" id="about-us-section" style="background-color: white;">
+  <div class="container p-5 text-center">
+      <h2 class="mb-4" style="color: #003366; font-size: 2.5rem;">About Medicore Hospital</h2>
+      <p class="lead" style="font-size: 1.2rem;">Founded on the principles of Excellence, Empathy, and Innovation, Medicore has been serving the community for over 30 years. Our mission is to provide comprehensive, patient-centered care and advance medical knowledge through research.</p>
+  </div>
+</section>
+
+   <section class="py-5">
+  <div class="container text-center">
+    <h5 class="card-title mb-4">Our Medical Specialties</h5>
+    <div class="row g-4">
+      <div class="col-md-4">
+        <div class="card h-100 shadow">
+          <img src="../../images/whyChooseUs1.jpg" class="card-img-top" alt="Verified Doctors" style="height: 200px; object-fit: cover;">
+          <div class="card-body">
+            <h5 class="card-title text-primary">Verified Doctors</h5>
+            <p class="card-text">Access a network of certified professionals across specialties.</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card h-100 shadow">
+          <img src="../../images/whyChooseUs2.jpg" class="card-img-top" alt="Real-Time Booking" style="height: 200px; object-fit: cover;">
+          <div class="card-body">
+            <h5 class="card-title text-primary">Real-Time Booking</h5>
+            <p class="card-text">See available slots and confirm instantly.</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card h-100 shadow">
+          <img src="../../images/whyChooseUs3.jpg" class="card-img-top" alt="Secure & Private" style="height: 200px; object-fit: cover;">
+          <div class="card-body">
+            <h5 class="card-title text-primary">Secure & Private</h5>
+            <p class="card-text">Your health data is encrypted and protected.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+</section>
+<section class="section main-specialties p-3 mt-3" id="specialties-section">
+<div class="container p-5">
+    <h5 class="card-title mb-4">Our Medical Specialties</h5>
+    <div class="row g-4">
+        <div class="col-md-4">
+            <div class="card h-100 shadow">
+                <img src="../../images/specialities1.jpg" class="card-img-top" alt="Cardiology" style="height: 200px; object-fit: cover;">
+                <div class="card-body">
+                    <h5 class="card-title text-primary">Cardiology</h5>
+                    <p class="card-text">Advanced cardiac care with state-of-the-art facilities</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card h-100 shadow">
+                <img src="../../images/specialities2.jpg" class="card-img-top" alt="Pediatrics" style="height: 200px; object-fit: cover;">
+                <div class="card-body">
+                    <h5 class="card-title text-primary">Pediatrics</h5>
+                    <p class="card-text">Specialized care for children of all ages</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card h-100 shadow">
+                <img src="../../images/specialities3.jpg" class="card-img-top" alt="Orthopedics" style="height: 200px; object-fit: cover;">
+                <div class="card-body">
+                    <h5 class="card-title text-primary">Orthopedics</h5>
+                    <p class="card-text">Expert bone and joint care specialists</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</section>
+
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    const scrollTriggerElements = document.querySelectorAll(
+        '#main-nav-links .nav-link, .logo, .btn-primary'
+    );
+    scrollTriggerElements.forEach(element => {
+        element.addEventListener('click', function(event) {
+            const targetHref = this.getAttribute('href');
+            if (targetHref && targetHref.startsWith('#') && targetHref.length > 1) {
+                event.preventDefault();
+                const targetElement = document.querySelector(targetHref);
+                if (targetElement) {
+                    targetElement.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            }
+        });
+    });
+});
+</script>
+</body>
+</html>

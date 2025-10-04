@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+<title>Patient Registration Form</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet">
+<link href="../../assets/css/style.css" rel="stylesheet">
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<style>
+body {
+min-height: 100px;
+display: flex;
+justify-content: center;
+align-items: center;
+background-color:aliceblue;
+}
+.card-container-wrapper {
+width: 90%; 
+max-width: 800px; 
+}
+.card {
+border-radius: 1rem;
+width: 100%;
+}
+.card-content {
+min-height: 375px;
+position: relative;
+padding-bottom: 30px;
+padding-top: 5px;
+max-height:375px;
+}
+.stepper {
+display: flex;
+align-items: center;
+}
+.step {
+width: 40px;
+height: 40px;
+border-radius: 50%;
+position: relative;
+z-index: 2; 
+background-color: lightgray;
+color: white;
+display: flex;
+align-items: center;
+justify-content: center;
+font-weight: bold;
+}
+.line {
+flex-grow: 1;
+height: 8px;
+background-color: lightgray;
+position: relative;
+z-index: 1;
+margin: 0 -5px; 
+}
+.line.active {
+background-color: mediumblue;
+transition: background-color 0.3s ease;
+}
+.step.active {
+background-color: mediumblue;
+transition: background-color 0.3s ease;
+}
+.button-container {
+position:absolute; 
+right:0;
+bottom:0;
+left:0;
+padding:10px;
+}
+@media (max-width: 768px) {
+.card-container-wrapper {
+width: 100%;
+padding: 15px;
+}
+.card {
+margin: 0;
+}
+}
+</style>
+</head>
+<body> 
+  <header id="header" class="header fixed-top d-flex align-items-center">
+    <div class="d-flex align-items-center justify-content-between">
+      <a href="index.html" class="logo d-flex align-items-center">
+        <span class="d-lg-block">Medicore</span>
+      </a>
+    </div>
+    <nav class="header-nav ms-auto">
+    <ul class="d-flex align-items-center">
+    <div class="btn btn-secondary me-3" style="color:#003366;">Login</div>
+    </ul>
+    </nav>
+  </header>
+  <section class="w-100" style="margin-top:75px;">
+    <div class="container d-flex justify-content-center">
+      <div class="card-container-wrapper">
+       <div class="card" style="padding-left:20px; padding-right:20px; padding-bottom:10px; padding-top:5px;">
+          <h4 class="text-center"></i>Patient Registration Form</h4>
+          <div class="stepper">
+              <div class="step active" style="font-size: 0.75rem;" id="indicator-1">1</div>
+              <div class="line" style="font-size: 0.75rem;"></div>
+              <div class="step" style="font-size: 0.75rem;" id="indicator-2">2</div>
+              <div class="line" style="font-size: 0.75rem;"></div>
+              <div class="step" style="font-size: 0.75rem;" id="indicator-3">3</div>
+              <div class="line" style="font-size: 0.75rem;"></div>
+              <div class="step"style="font-size: 0.75rem;" id="indicator-4">4</div>
+          </div>
+          <div class="card-content"> 
+            <div id="step-1">
+              <form class="needs-validation" novalidate>
+                <div class="row">
+                  <div class="col-6 mb-2">
+                    <label for="firstName" class="form-label fw-bold " style="font-size: 0.75rem;">First Name  <span class="text-danger">*</span></label>
+                    <input type="text" class="form-control" style="font-size: 0.75rem;" id="firstName" placeholder="Enter your First Name" required>
+                    <div class="invalid-feedback" style="font-size: 0.75rem; max-width:170px;max-height:5px;">Please enter your first name.</div>
+                  </div>
+                  <div class="col-6 mb-2">
+                    <label for="lastName" class="form-label fw-bold" style="font-size: 0.75rem;">Last Name  <span class="text-danger">*</span></label>
+                    <input type="text" class="form-control" id="lastName" style="font-size: 0.75rem;" placeholder="Enter your Last Name" required>
+                    <div class="invalid-feedback" style="font-size: 0.75rem;">Please enter your last name.</div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-6 mb-2">
+                    <label for="genderSelect" class="form-label fw-bold" style="font-size: 0.75rem;">Gender <span class="text-danger">*</span></label>
+                    <select class="form-select" id="genderSelect" name="gender" style="font-size: 0.75rem;" required>
+                        <option value="" disabled selected>Select Gender</option>
+                        <option value="male">Male</option>
+                        <option value="female">Female</option>
+                        <option value="other">Other</option>
+                    </select>
+                    <div class="invalid-feedback " style="font-size: 0.75rem;">Please select your gender.</div>
+                  </div>
+                  <div class="col-6 mb-2">
+                    <label for="dob" class="form-label fw-bold" style="font-size: 0.75rem;">Date of Birth  <span class="text-danger">*</span></label>
+                    <input type="date" class="form-control" style="font-size: 0.75rem;" id="dob" required>
+                    <div class="invalid-feedback" style="font-size: 0.75rem;">Please enter your date of birth.</div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-6 mb-2">
+                    <label for="phone" class="form-label fw-bold" style="font-size: 0.75rem;">Phone Number <span class="text-danger">*</span></label>
+                    <input type="tel" class="form-control" id="phone" style="font-size: 0.75rem;" placeholder="Enter your phone number" required>
+                    <div class="invalid-feedback" style="font-size: 0.75rem;">Please enter a phone number.</div>
+                  </div>
+                  <div class="col-6 mb-2">
+                    <label for="address" class="form-label fw-bold"style="font-size: 0.75rem;">Address <span class="text-danger">*</span></label>
+                    <input type="text" class="form-control" style="font-size: 0.75rem;" id="address" placeholder="Enter your address" required>
+                    <div class="invalid-feedback" style="font-size: 0.75rem;">Please enter your address.</div>
+                  </div> 
+                </div>          
+                <div class="button-container d-flex justify-content-end">
+                  <button class="btn btn-primary next" style="font-size: 0.75rem;">Next</button>
+                </div>
+              </form>
+            </div>
+            <div id="step-2" class="d-none">
+            <form class="needs-validation" novalidate>
+              <div class="row">
+                <div class="col-12 mb-2">
+                  <label for="bloodGroupSelect" class="form-label fw-bold" style="font-size: 0.75rem;">Blood Group  <span class="text-danger">*</span></label>
+                    <select class="form-select" id="bloodGroupSelect" style="font-size: 0.75rem;" required>
+                      <option value="" disabled selected>Select your blood group</option>
+                      <option value="A+">A+</option>
+                      <option value="A-">A-</option>
+                      <option value="B+">B+</option>
+                      <option value="B-">B-</option>
+                      <option value="AB+">AB+</option>
+                      <option value="AB-">AB-</option>
+                      <option value="O+">O+</option>
+                      <option value="O-">O-</option>
+                    </select>
+                  <div class="invalid-feedback" style="font-size: 0.75rem;">Please select your blood group.</div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-12 mb-2">
+                  <label for="conditionTextarea" class="form-label fw-bold" style="font-size: 0.75rem;">Condition / Symptoms <span class="text-danger">*</span></label>
+                  <textarea class="form-control" id="conditionTextarea" style="font-size: 0.75rem;" placeholder="Briefly describe your condition or symptoms (2 lines max)" rows="2" required></textarea>
+                  <div class="invalid-feedback" style="font-size: 0.75rem;">Please enter a brief description of your condition.</div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-12 mb-2">
+                  <label for="conditionTextarea" class="form-label fw-bold" style="font-size: 0.75rem;">Allergies <span class="text-danger">*</span></label>
+                  <textarea class="form-control" id="conditionTextarea" style="font-size: 0.75rem;" placeholder="Briefly describe your condition or symptoms (2 lines max)" rows="2" required></textarea>
+                  <div class="invalid-feedback" style="font-size: 0.75rem;">Please enter a brief description of your allergies.</div>
+                </div>
+              </div>
+              <div class="button-container d-flex justify-content-between">
+                <button class="btn btn-secondary prev" style="font-size: 0.75rem;">Previous</button>
+                <button class="btn btn-primary next" style="font-size: 0.75rem;">Next</button>
+              </div>
+            </form>
+            </div>
+            <div id="step-3" class="d-none">
+            <form class="needs-validation" novalidate>
+              <div class="row">
+                <div class="col-12 mb-2">
+                  <label for="email" class="form-label fw-bold" style="font-size: 0.75rem;">Email address <span class="text-danger">*</span></label>
+                  <input type="email" class="form-control" id="email" style="font-size: 0.75rem;" placeholder="Enter your email" required>
+                  <div class="invalid-feedback" style="font-size: 0.75rem;">Please enter a valid email address.</div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-6 mb-2">
+                  <label for="password" class="form-label fw-bold" style="font-size: 0.75rem;">Create Password <span class="text-danger">*</span></label>
+                  <input type="password" class="form-control" id="password" style="font-size: 0.75rem;" placeholder="Enter a safe and secure password" required>
+                  <div class="invalid-feedback" style="font-size: 0.75rem;">Please enter a password.</div>
+                </div>
+                <div class="col-6 mb-2">
+                        <label for="confirmPassword" class="form-label fw-bold" style="font-size: 0.75rem;">Confirm Password  <span class="text-danger">*</span></label>
+                        <input type="password" class="form-control" id="confirmPassword" style="font-size: 0.75rem;" placeholder="Re-enter your password" required>
+                        <div class="invalid-feedback" style="font-size: 0.75rem;">Please confirm your password.</div>
+                    </div>
+              </div>
+              <div class="button-container d-flex justify-content-between">
+                  <button class="btn btn-secondary prev" style="font-size: 0.75rem;">Previous</button>
+                  <button class="btn btn-primary next" style="font-size: 0.75rem;">Next</button>
+              </div>
+            </form>
+            </div>
+            <div id="step-4" class="d-none">
+              <div class="container mt-3">
+              <h5>Review your information</h5>
+              <p class="text-muted">Please confirm all details before submitting.</p>
+              </div>
+              <div class="button-container d-flex justify-content-between">
+                  <button class="btn btn-secondary prev" id="prevbtn" style="font-size:0.75rem;">Previous</button>
+                  <button class="btn btn-success" id="submitbtn" style="font-size: 0.75rem;">Submit</button>
+              </div>
+            </div>
+          </div> 
+        </div>
+      </div>
+    </div>
+  </section>
+<script>
+
+const Stepper = {
+    currentStep: 0,
+    stepIndicators: document.querySelectorAll('.step'),
+    contentPanels: [ 
+        document.getElementById('step-1'),
+        document.getElementById('step-2'),
+        document.getElementById('step-3'),
+        document.getElementById('step-4')
+    ],
+    nextButtons: document.querySelectorAll('.next'),
+    prevButtons: document.querySelectorAll('.prev'),
+    submitButton: document.getElementById('submitbtn'),
+    progressLines: document.querySelectorAll('.stepper .line'),
+
+    
+    showStep(index) {
+
+        this.contentPanels.forEach((content, i) => {
+            
+            content.classList.toggle('d-none', i !== index);
+        });
+
+        this.stepIndicators.forEach((step, i) => {
+            step.classList.toggle('active', i <= index);
+        });
+        this.progressLines.forEach((line, i) => {
+        
+            line.classList.toggle('active', i < index);
+        });
+    },
+
+    handleNextClick(event) {
+        event.preventDefault();
+
+        const currentPanel = this.contentPanels[this.currentStep];
+        const currentForm = currentPanel.querySelector('form');
+
+        if (currentForm) {
+  
+            if (!currentForm.checkValidity()) {
+
+                currentForm.classList.add('was-validated');
+                return;
+            }
+
+            currentForm.classList.remove('was-validated');
+        }
+        if (this.currentStep < this.contentPanels.length - 1) {
+            this.currentStep++;
+            this.showStep(this.currentStep);
+        }
+    },
+
+    handlePrevClick(event) {
+        event.preventDefault();
+
+        if (this.currentStep > 0) {
+            this.currentStep--;
+            this.showStep(this.currentStep);
+            const previousForm = this.contentPanels[this.currentStep].querySelector('form');
+            if (previousForm) {
+                previousForm.classList.remove('was-validated');
+            }
+        }
+    },
+    handleSubmitClick(event) {
+        event.preventDefault();
+        alert('Registration successful!');
+        const allData = {};
+        document.querySelectorAll('input, textarea').forEach(input => {
+            if (input.id && input.type !== 'password') {
+                allData[input.id] = input.value;
+            }
+        });
+        console.log('Final Registration Data:', allData);
+    },
+    init() {
+        document.querySelectorAll('form').forEach(form => {
+            form.setAttribute('novalidate', '');
+        });
+        this.nextButtons.forEach(button => {
+            button.addEventListener('click', this.handleNextClick.bind(this));
+        });
+        this.prevButtons.forEach(button => {
+            button.addEventListener('click', this.handlePrevClick.bind(this));
+        });
+        this.submitButton.addEventListener('click', this.handleSubmitClick.bind(this));
+        this.showStep(this.currentStep);
+    }
+};
+document.addEventListener('DOMContentLoaded', () => {
+    if (Stepper.contentPanels.length > 0 && Stepper.submitButton) {
+        Stepper.init();
+    } else {
+        console.error("Stepper elements not found. Initialization skipped.");
+    }
+});
+</script>
+</body>
+</html>

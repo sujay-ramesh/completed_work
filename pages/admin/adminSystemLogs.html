@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>System Logs - Medicore</title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+
+  <!-- Favicons -->
+  <link href="../../assets/img/favicon.png" rel="icon">
+  <link href="../../assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.gstatic.com" rel="preconnect">
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+  <!-- CSS Files -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+
+  <!-- Template Main CSS File -->
+  <link href="../../assets/css/style.css" rel="stylesheet">
+
+  <!-- Custom CSS for System Logs -->
+  <style>
+    .log-entry {
+      padding: 15px;
+      margin-bottom: 10px;
+      border-left: 4px solid;
+      background-color: #f8f9fa;
+      border-radius: 4px;
+      transition: all 0.3s;
+    }
+
+    .log-entry:hover {
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+
+    .log-user-management {
+      border-left-color: #0d6efd;
+    }
+
+    .log-appointment {
+      border-left-color: #198754;
+    }
+
+    .log-doctor-availability {
+      border-left-color: #ffc107;
+    }
+
+    .log-admin-action {
+      border-left-color: #dc3545;
+    }
+
+    .log-notification {
+      border-left-color: #6f42c1;
+    }
+
+    .log-timestamp {
+      font-size: 0.85rem;
+      color: #6c757d;
+    }
+
+    .log-action {
+      font-weight: 600;
+    }
+
+    .filter-buttons {
+      margin-bottom: 20px;
+    }
+
+    .filter-buttons .btn {
+      margin-right: 5px;
+      margin-bottom: 10px;
+    }
+
+    /* Mobile responsiveness */
+    @media (max-width: 768px) {
+      .log-entry {
+        padding: 10px;
+        font-size: 0.9rem;
+      }
+
+      .filter-buttons .btn {
+        font-size: 0.85rem;
+        padding: 5px 10px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+   <!-- Header -->
+  <header id="header" class="header fixed-top d-flex align-items-center">
+    <div class="d-flex align-items-center justify-content-between">
+      <a href="adminDashboard.html" class="logo d-flex align-items-center">
+        <img src="../../assets/img/logo.png" alt="">
+        <span class="d-none d-lg-block">Medicore</span>
+      </a>
+      <i class="bi bi-list toggle-sidebar-btn"></i>
+    </div>
+
+    <nav class="header-nav ms-auto">
+      <ul class="d-flex align-items-center">
+        <!-- Profile -->
+        <li class="nav-item dropdown pe-3">
+          <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
+            <span class="d-none d-md-block dropdown-toggle ps-2">Admin</span>
+          </a>
+
+          <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
+            <li class="dropdown-header">
+              <h6>Administrator</h6>
+              <span>admin@medicore.com</span>
+            </li>
+            <li><hr class="dropdown-divider"></li>
+            <li>
+              <a class="dropdown-item d-flex align-items-center" href="adminProfile.html">
+                <i class="bi bi-person"></i>
+                <span>My Profile</span>
+              </a>
+            </li>
+            <li><hr class="dropdown-divider"></li>
+            <li>
+              <a class="dropdown-item d-flex align-items-center" href="../login/adminDoctorLogin.html">
+                <i class="bi bi-box-arrow-right"></i>
+                <span>Sign Out</span>
+              </a>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </nav>
+  </header>
+  
+  <!-- ======= Sidebar ======= -->
+  <aside id="sidebar" class="sidebar">
+    <ul class="sidebar-nav" id="sidebar-nav">
+      
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="adminDashboard.html">
+          <i class="bi bi-grid"></i>
+          <span>Dashboard</span>
+        </a>
+      </li>
+
+      <li class="nav-heading">User Management</li>
+      
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="adminManageUsers.html">
+          <i class="bi bi-people"></i>
+          <span>Manage All Users</span>
+        </a>
+      </li>
+      
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="adminAddDoctor.html">
+          <i class="bi bi-person-plus"></i>
+          <span>Add Doctor</span>
+        </a>
+      </li>
+      
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="adminAddAdmin.html">
+          <i class="bi bi-shield-plus"></i>
+          <span>Add Admin</span>
+        </a>
+      </li>
+
+      <li class="nav-heading">System</li>
+      
+      <li class="nav-item">
+        <a class="nav-link" href="adminSystemLogs.html">
+          <i class="bi bi-file-text"></i>
+          <span>System Logs</span>
+        </a>
+      </li>
+      
+      <li class="nav-heading">Account</li>
+      
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="adminProfile.html">
+          <i class="bi bi-person-circle"></i>
+          <span>My Profile</span>
+        </a>
+      </li>
+      
+
+      
+    </ul>
+  </aside><!-- End Sidebar-->
+
+  <main id="main" class="main">
+
+    <div class="pagetitle">
+      <h1>System Logs</h1>
+      <nav>
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="adminDashboard.html">Home</a></li>
+          <li class="breadcrumb-item active">System Logs</li>
+        </ol>
+      </nav>
+    </div><!-- End Page Title -->
+
+    <section class="section">
+      <div class="row">
+        <div class="col-lg-12">
+
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Recent System Activities</h5>
+
+              <!-- Filter Buttons -->
+              <div class="filter-buttons">
+                <button class="btn btn-sm btn-primary active" onclick="filterLogs('all')">
+                  <i class="bi bi-list"></i> All Logs
+                </button>
+                <button class="btn btn-sm btn-outline-primary" onclick="filterLogs('user-management')">
+                  <i class="bi bi-people"></i> User Management
+                </button>
+                <button class="btn btn-sm btn-outline-success" onclick="filterLogs('appointment')">
+                  <i class="bi bi-calendar-check"></i> Appointments
+                </button>
+                <button class="btn btn-sm btn-outline-warning" onclick="filterLogs('doctor-availability')">
+                  <i class="bi bi-clock"></i> Doctor Availability
+                </button>
+                <button class="btn btn-sm btn-outline-danger" onclick="filterLogs('admin-action')">
+                  <i class="bi bi-shield"></i> Admin Actions
+                </button>
+                <button class="btn btn-sm btn-outline-secondary" onclick="filterLogs('notification')">
+                  <i class="bi bi-bell"></i> Notifications
+                </button>
+              </div>
+
+             <!-- Date Filter -->
+<div class="row mb-3">
+  <div class="col-md-3">
+    <label for="startDate" class="form-label">From Date</label>
+    <input type="date" class="form-control" id="startDate" onchange="filterByDate()">
+  </div>
+  <div class="col-md-3">
+    <label for="endDate" class="form-label">To Date</label>
+    <input type="date" class="form-control" id="endDate" onchange="filterByDate()">
+  </div>
+  <div class="col-md-3 d-flex align-items-end">
+    <button class="btn btn-sm btn-secondary" onclick="exportLogs()">
+      <i class="bi bi-download"></i> Export Logs
+    </button>
+  </div>
+</div>
+              <!-- Logs Container -->
+              <div id="logsContainer">
+                
+                <!-- User Management Log -->
+                <div class="log-entry log-user-management" data-category="user-management">
+                  <div class="d-flex justify-content-between align-items-start">
+                    <div>
+                      <span class="log-action">New Doctor Added</span>
+                      <div class="log-details">
+                        Admin <strong>Dhanush (A001)</strong> added new doctor <strong>Dr. Sarah Johnson (D004)</strong>
+                      </div>
+                      <div class="log-timestamp">
+                        <i class="bi bi-clock"></i> Today, 10:30 AM | IP: 192.168.1.100
+                      </div>
+                    </div>
+                    <span class="badge bg-primary">User Management</span>
+                  </div>
+                </div>
+
+                <!-- Appointment Log -->
+                <div class="log-entry log-appointment" data-category="appointment">
+                  <div class="d-flex justify-content-between align-items-start">
+                    <div>
+                      <span class="log-action">Appointment Booked</span>
+                      <div class="log-details">
+                        Patient <strong>Srinu (P001)</strong> booked appointment with <strong>Dr. Badram (D001)</strong> for Dec 25, 2024 at 10:00 AM
+                      </div>
+                      <div class="log-timestamp">
+                        <i class="bi bi-clock"></i> Today, 9:45 AM | Status: BOOKED
+                      </div>
+                    </div>
+                    <span class="badge bg-success
+                    ">Appointment</span>
+                  </div>
+                </div>
+
+                <!-- Doctor Availability Log -->
+                <div class="log-entry log-doctor-availability" data-category="doctor-availability">
+                  <div class="d-flex justify-content-between align-items-start">
+                    <div>
+                      <span class="log-action">Doctor Schedule Updated</span>
+                      <div class="log-details">
+                        <strong>Dr. Michael (D002)</strong> updated availability from 10:00 AM - 6:00 PM to 9:00 AM - 5:00 PM
+                      </div>
+                      <div class="log-timestamp">
+                        <i class="bi bi-clock"></i> Today, 8:20 AM | Modified by: Dr. Michael
+                      </div>
+                    </div>
+                    <span class="badge bg-warning">Availability</span>
+                  </div>
+                </div>
+
+                <!-- Admin Action Log -->
+                <div class="log-entry log-admin-action" data-category="admin-action">
+                  <div class="d-flex justify-content-between align-items-start">
+                    <div>
+                      <span class="log-action">Admin Login</span>
+                      <div class="log-details">
+                        Admin <strong>Dhanush (A001)</strong> logged into the system
+                      </div>
+                      <div class="log-timestamp">
+                        <i class="bi bi-clock"></i> Today, 7:00 AM | IP: 192.168.1.100 | Status: Success
+                      </div>
+                    </div>
+                    <span class="badge bg-danger">Admin Action</span>
+                  </div>
+                </div>
+
+                <!-- Notification Log -->
+                <div class="log-entry log-notification" data-category="notification">
+                  <div class="d-flex justify-content-between align-items-start">
+                    <div>
+                      <span class="log-action">Appointment Reminder Sent</span>
+                      <div class="log-details">
+                        Reminder notification sent to <strong>Robert (P003)</strong> for appointment on Dec 24, 2024
+                      </div>
+                      <div class="log-timestamp">
+                        <i class="bi bi-clock"></i> Yesterday, 6:00 PM | Type: REMINDER | Status: Sent
+                      </div>
+                    </div>
+                    <span class="badge bg-secondary">Notification</span>
+                  </div>
+                </div>
+
+                <!-- Appointment Cancellation Log -->
+                <div class="log-entry log-appointment" data-category="appointment">
+                  <div class="d-flex justify-content-between align-items-start">
+                    <div>
+                      <span class="log-action">Appointment Cancelled</span>
+                      <div class="log-details">
+                        Patient <strong>Smith (P002)</strong> cancelled appointment with <strong>Dr. Babu (D003)</strong> scheduled for Dec 23, 2024
+                      </div>
+                      <div class="log-timestamp">
+                        <i class="bi bi-clock"></i> Yesterday, 3:30 PM | Status: CANCELED
+                      </div>
+                    </div>
+                    <span class="badge bg-success">Appointment</span>
+                  </div>
+                </div>
+
+                <!-- User Management - Delete Log -->
+                <div class="log-entry log-user-management" data-category="user-management">
+                  <div class="d-flex justify-content-between align-items-start">
+                    <div>
+                      <span class="log-action">Patient Deleted</span>
+                      <div class="log-details">
+                        Admin <strong>John Admin (A002)</strong> deleted patient account <strong>P004</strong>
+                      </div>
+                      <div class="log-timestamp">
+                        <i class="bi bi-clock"></i> Yesterday, 2:15 PM | IP: 192.168.1.105
+                      </div>
+                    </div>
+                    <span class="badge bg-primary">User Management</span>
+                  </div>
+                </div>
+
+                <!-- Admin Action - Failed Login -->
+                <div class="log-entry log-admin-action" data-category="admin-action">
+                  <div class="d-flex justify-content-between align-items-start">
+                    <div>
+                      <span class="log-action">Failed Login Attempt</span>
+                      <div class="log-details">
+                        Failed login attempt for admin email: admin@medicore.com
+                      </div>
+                      <div class="log-timestamp">
+                        <i class="bi bi-clock"></i> Yesterday, 11:45 AM | IP: 192.168.1.200 | Status: Failed
+                      </div>
+                    </div>
+                    <span class="badge bg-danger">Admin Action</span>
+                  </div>
+                </div>
+
+                <!-- Notification Failed Log -->
+                <div class="log-entry log-notification" data-category="notification">
+                  <div class="d-flex justify-content-between align-items-start">
+                    <div>
+                      <span class="log-action">Notification Failed</span>
+                      <div class="log-details">
+                        Failed to send appointment confirmation to patient email: invalid@email.com
+                      </div>
+                      <div class="log-timestamp">
+                        <i class="bi bi-clock"></i> 2 days ago, 4:00 PM | Type: CONFIRMATION | Status: Failed
+                      </div>
+                    </div>
+                    <span class="badge bg-secondary">Notification</span>
+                  </div>
+                </div>
+
+                <!-- Appointment Completed Log -->
+                <div class="log-entry log-appointment" data-category="appointment">
+                  <div class="d-flex justify-content-between align-items-start">
+                    <div>
+                      <span class="log-action">Appointment Completed</span>
+                      <div class="log-details">
+                        Appointment between <strong>Patient P001</strong> and <strong>Dr. Badram (D001)</strong> marked as completed
+                      </div>
+                      <div class="log-timestamp">
+                        <i class="bi bi-clock"></i> 3 days ago, 11:00 AM | Status: COMPLETED
+                      </div>
+                    </div>
+                    <span class="badge bg-success">Appointment</span>
+                  </div>
+                </div>
+
+              </div>
+
+              <!-- Load More Button -->
+              <div class="text-center mt-4">
+                <button class="btn btn-outline-primary" onclick="loadMoreLogs()">
+                  <i class="bi bi-arrow-down"></i> Load More Logs
+                </button>
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+  </main><!-- End #main -->
+
+  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+  <!-- JS Files -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="../../assets/js/sidebar.js"></script>
+
+  <!-- Template Main JS File -->
+  <script src="../../assets/js/main.js"></script>
+
+  <!-- Custom JavaScript for System Logs -->
+ <script>
+    // Filter logs by category
+    function filterLogs(category) {
+      // Update active button
+      const buttons = document.querySelectorAll('.filter-buttons button');
+      buttons.forEach(btn => {
+        btn.classList.remove('active');
+        btn.classList.remove('btn-primary', 'btn-success', 'btn-warning', 'btn-danger', 'btn-secondary');
+        btn.classList.add('btn-outline-primary', 'btn-outline-success', 'btn-outline-warning', 'btn-outline-danger', 'btn-outline-secondary');
+      });
+      
+      event.target.classList.add('active');
+      event.target.classList.remove('btn-outline-primary', 'btn-outline-success', 'btn-outline-warning', 'btn-outline-danger', 'btn-outline-secondary');
+      
+      // Add appropriate color class
+      if (category === 'all') event.target.classList.add('btn-primary');
+      else if (category === 'appointment') event.target.classList.add('btn-success');
+      else if (category === 'doctor-availability') event.target.classList.add('btn-warning');
+      else if (category === 'admin-action') event.target.classList.add('btn-danger');
+      else if (category === 'notification') event.target.classList.add('btn-secondary');
+      else event.target.classList.add('btn-primary');
+
+      // Filter log entries
+      const logEntries = document.querySelectorAll('.log-entry');
+      logEntries.forEach(entry => {
+        if (category === 'all' || entry.dataset.category === category) {
+          entry.style.display = 'block';
+        } else {
+          entry.style.display = 'none';
+        }
+      });
+    }
+
+    // Filter logs by date range
+    function filterByDate() {
+      const startDate = document.getElementById('startDate').value;
+      const endDate = document.getElementById('endDate').value;
+      
+      const logEntries = document.querySelectorAll('.log-entry');
+      
+      // If no dates selected, show all
+      if (!startDate && !endDate) {
+        logEntries.forEach(entry => {
+          entry.style.display = 'block';
+        });
+        return;
+      }
+      
+      logEntries.forEach(entry => {
+        // Assuming you have a data-date attribute on each log entry
+        const logDate = entry.dataset.date;
+        
+        let shouldShow = true;
+        
+        if (startDate && logDate < startDate) {
+          shouldShow = false;
+        }
+        
+        if (endDate && logDate > endDate) {
+          shouldShow = false;
+        }
+        
+        entry.style.display = shouldShow ? 'block' : 'none';
+      });
+    }
+
+    // Export logs function with date range
+    function exportLogs() {
+      const startDate = document.getElementById('startDate').value;
+      const endDate = document.getElementById('endDate').value;
+      
+      // Validate dates
+      if (!startDate || !endDate) {
+        alert('Please select both start and end dates to export logs');
+        return;
+      }
+      
+      if (startDate > endDate) {
+        alert('Start date cannot be after end date');
+        return;
+      }
+      
+      if (confirm(`Export system logs from ${startDate} to ${endDate}?`)) {
+        // In real implementation, this would call your backend endpoint
+        // window.location.href = `/admin/system-logs/export?startDate=${startDate}&endDate=${endDate}`;
+        alert(`System logs exported successfully!\nDate range: ${startDate} to ${endDate}`);
+      }
+    }
+
+    // Load more logs
+    function loadMoreLogs() {
+      // In real implementation, this would fetch more logs from the server
+      alert('Loading more logs...');
+    }
+
+    // Auto-refresh logs every 30 seconds
+    setInterval(function() {
+      console.log('Refreshing logs...');
+      // In real implementation, fetch new logs via AJAX
+    }, 30000);
+
+    // Initialize tooltips
+    document.addEventListener('DOMContentLoaded', function() {
+      const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+      tooltipTriggerList.map(function(tooltipTriggerEl) {
+        return new bootstrap.Tooltip(tooltipTriggerEl);
+      });
+    });
+  </script>
+
+</body>
+
+</html>

@@ -1,0 +1,940 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>Manage Users - Admin Panel</title>
+  
+  <!-- Favicons -->
+  <link href="../../assets/img/favicon.png" rel="icon">
+  <link href="../../assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.gstatic.com" rel="preconnect">
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+  <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet">
+
+  <!-- Template Main CSS File -->
+  <link href="../../assets/css/style.css" rel="stylesheet">
+  
+  <!-- Custom CSS for this page -->
+  <style>
+    /* Search Box Styling */
+    .search-container {
+      position: relative;
+      margin-bottom: 20px;
+    }
+    
+    .search-container input {
+      padding-right: 40px;
+    }
+    
+    .search-container .bi-search {
+      position: absolute;
+      right: 15px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #6c757d;
+      pointer-events: none;
+    }
+    
+    /* Tab Styling */
+    .nav-pills .nav-link {
+      background-color: #f8f9fa;
+      color: #333;
+      margin-right: 10px;
+      border-radius: 5px;
+      padding: 10px 20px;
+      transition: all 0.3s;
+    }
+    
+    .nav-pills .nav-link.active {
+      background-color: #0d6efd;
+      color: white;
+    }
+    
+    .nav-pills .nav-link:hover {
+      background-color: #e9ecef;
+    }
+    
+    /* Table Styling */
+    .table-responsive {
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 0 20px rgba(0,0,0,0.1);
+    }
+    
+    /* Button Styling */
+    .btn-action {
+      padding: 5px 10px;
+      margin: 0 2px;
+      border-radius: 4px;
+    }
+
+    /* Status Badge */
+    .status-badge {
+      padding: 5px 10px;
+      border-radius: 20px;
+      font-size: 0.85rem;
+    }
+
+    .status-active {
+      background-color: #d4edda;
+      color: #155724;
+    }
+
+    .status-inactive {
+      background-color: #f8d7da;
+      color: #721c24;
+    }
+
+    /* Action header alignment */
+    .table-header-row {
+      margin-bottom: 20px;
+      align-items: center;
+    }
+
+    /* Modal styling */
+    .modal-body h6 {
+      color: #0d6efd;
+      margin-top: 20px;
+      margin-bottom: 15px;
+    }
+
+    .modal-body h6:first-child {
+      margin-top: 0;
+    }
+
+    .user-info-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 15px;
+    }
+
+    .info-item {
+      margin-bottom: 10px;
+    }
+
+    .info-item strong {
+      color: #495057;
+      font-weight: 600;
+    }
+    
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+      .table {
+        font-size: 0.9rem;
+      }
+      
+      .btn-action {
+        padding: 3px 8px;
+        font-size: 0.8rem;
+      }
+      
+      .nav-pills .nav-link {
+        padding: 8px 15px;
+        font-size: 0.9rem;
+      }
+
+      .user-info-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Header -->
+  <header id="header" class="header fixed-top d-flex align-items-center">
+    <div class="d-flex align-items-center justify-content-between">
+      <a href="adminDashboard.html" class="logo d-flex align-items-center">
+        <img src="../../assets/img/logo.png" alt="">
+        <span class="d-none d-lg-block">Medicore</span>
+      </a>
+      <i class="bi bi-list toggle-sidebar-btn"></i>
+    </div>
+
+    <nav class="header-nav ms-auto">
+      <ul class="d-flex align-items-center">
+        <!-- Profile -->
+        <li class="nav-item dropdown pe-3">
+          <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
+            <span class="d-none d-md-block dropdown-toggle ps-2">Admin</span>
+          </a>
+
+          <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
+            <li class="dropdown-header">
+              <h6>Administrator</h6>
+              <span>admin@medicore.com</span>
+            </li>
+            <li><hr class="dropdown-divider"></li>
+            <li>
+              <a class="dropdown-item d-flex align-items-center" href="adminProfile.html">
+                <i class="bi bi-person"></i>
+                <span>My Profile</span>
+              </a>
+            </li>
+            <li><hr class="dropdown-divider"></li>
+            <li>
+              <a class="dropdown-item d-flex align-items-center" href="../login/adminDoctorLogin.html">
+                <i class="bi bi-box-arrow-right"></i>
+                <span>Sign Out</span>
+              </a>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- Sidebar -->
+  <aside id="sidebar" class="sidebar">
+    <ul class="sidebar-nav" id="sidebar-nav">
+      
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="adminDashboard.html">
+          <i class="bi bi-grid"></i>
+          <span>Dashboard</span>
+        </a>
+      </li>
+
+      <li class="nav-heading">User Management</li>
+      
+      <li class="nav-item">
+        <a class="nav-link" href="adminManageUsers.html">
+          <i class="bi bi-people"></i>
+          <span>Manage All Users</span>
+        </a>
+      </li>
+      
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="adminAddDoctor.html">
+          <i class="bi bi-person-plus"></i>
+          <span>Add Doctor</span>
+        </a>
+      </li>
+      
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="adminAddAdmin.html">
+          <i class="bi bi-shield-plus"></i>
+          <span>Add Admin</span>
+        </a>
+      </li>
+
+      <li class="nav-heading">System</li>
+      
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="adminSystemLogs.html">
+          <i class="bi bi-file-text"></i>
+          <span>System Logs</span>
+        </a>
+      </li>
+
+      <li class="nav-heading">Account</li>
+      
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="adminProfile.html">
+          <i class="bi bi-person-circle"></i>
+          <span>My Profile</span>
+        </a>
+      </li>
+      
+
+      
+    </ul>
+  </aside>
+
+  <!-- Main Content -->
+  <main id="main" class="main">
+    <div class="pagetitle">
+      <h1>Manage Users</h1>
+      <nav>
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="adminDashboard.html">Home</a></li>
+          <li class="breadcrumb-item active">Manage Users</li>
+        </ol>
+      </nav>
+    </div>
+
+    <section class="section">
+      <div class="row">
+        <div class="col-12">
+          <div class="card">
+            <div class="card-body pt-3">
+              <!-- Tabs -->
+              <ul class="nav nav-pills mb-3" id="userTabs" role="tablist">
+                <li class="nav-item" role="presentation">
+                  <button class="nav-link active" id="patients-tab" data-bs-toggle="pill" 
+                          data-bs-target="#patients" type="button">
+                    <i class="bi bi-people"></i> Patients
+                  </button>
+                </li>
+                <li class="nav-item" role="presentation">
+                  <button class="nav-link" id="doctors-tab" data-bs-toggle="pill" 
+                          data-bs-target="#doctors" type="button">
+                    <i class="bi bi-person-badge"></i> Doctors
+                  </button>
+                </li>
+                <li class="nav-item" role="presentation">
+                  <button class="nav-link" id="admins-tab" data-bs-toggle="pill" 
+                          data-bs-target="#admins" type="button">
+                    <i class="bi bi-shield"></i> Admins
+                  </button>
+                </li>
+              </ul>
+
+              <!-- Tab Content -->
+              <div class="tab-content" id="userTabsContent">
+                <!-- Patients Tab -->
+                <div class="tab-pane fade show active" id="patients">
+                  <div class="row table-header-row">
+                    <div class="col-md-6">
+                      <div class="search-container">
+                        <input type="text" class="form-control" id="searchPatient" 
+                               placeholder="Search patients..." onkeyup="filterPatients()">
+                        <i class="bi bi-search"></i>
+                      </div>
+                    </div>
+                    <div class="col-md-6 text-md-end text-start">
+                      <span class="text-muted">Total Patients: <strong id="patientCount">3</strong></span>
+                    </div>
+                  </div>
+
+                  <!-- Patients Table -->
+                  <div class="table-responsive">
+                    <table class="table table-hover">
+                      <thead>
+                        <tr>
+                          <th>Patient ID</th>
+                          <th>Name</th>
+                          <th>Email</th>
+                          <th>Phone</th>
+                          <th>Status</th>
+                          <th>Actions</th>
+                        </tr>
+                      </thead>
+                      <tbody id="patientsTableBody">
+                        <tr data-user-id="P001">
+                          <td>P001</td>
+                          <td>Srinu</td>
+                          <td>srinu@email.com</td>
+                          <td>+91 897656788</td>
+                          <td><span class="status-badge status-active">Active</span></td>
+                          <td>
+                            <button class="btn btn-sm btn-info btn-action" onclick="viewDetails('patient', 'P001')" data-bs-toggle="modal" data-bs-target="#detailsModal">
+                              View
+                            </button>
+                          </td>
+                        </tr>
+                        <tr data-user-id="P002">
+                          <td>P002</td>
+                          <td>Smith</td>
+                          <td>smith@email.com</td>
+                          <td>+91 92345678</td>
+                          <td><span class="status-badge status-active">Active</span></td>
+                          <td>
+                            <button class="btn btn-sm btn-info btn-action" onclick="viewDetails('patient', 'P002')" data-bs-toggle="modal" data-bs-target="#detailsModal">
+                              View
+                            </button>
+                          </td>
+                        </tr>
+                        <tr data-user-id="P003">
+                          <td>P003</td>
+                          <td>Robert</td>
+                          <td>robert.j@email.com</td>
+                          <td>+91 78999552</td>
+                          <td><span class="status-badge status-inactive">Inactive</span></td>
+                          <td>
+                            <button class="btn btn-sm btn-info btn-action" onclick="viewDetails('patient', 'P003')" data-bs-toggle="modal" data-bs-target="#detailsModal">
+                              View
+                            </button>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+
+                <!-- Doctors Tab -->
+                <div class="tab-pane fade" id="doctors">
+                  <div class="row table-header-row">
+                    <div class="col-md-6">
+                      <div class="search-container">
+                        <input type="text" class="form-control" id="searchDoctor" 
+                                                              placeholder="Search doctors..." onkeyup="filterDoctors()">
+                        <i class="bi bi-search"></i>
+                      </div>
+                    </div>
+                    <div class="col-md-6 text-md-end text-start">
+                      <a href="adminAddDoctor.html" class="btn btn-success">
+                        <i class="bi bi-plus-circle"></i> Add Doctor
+                      </a>
+                    </div>
+                  </div>
+
+                  <!-- Doctors Table -->
+                  <div class="table-responsive">
+                    <table class="table table-hover">
+                      <thead>
+                        <tr>
+                          <th>Doctor ID</th>
+                          <th>Name</th>
+                          <th>Specialization</th>
+                          <th>Email</th>
+                          <th>Phone</th>
+                          <th>Status</th>
+                          <th>Actions</th>
+                        </tr>
+                      </thead>
+                      <tbody id="doctorsTableBody">
+                        <tr data-user-id="D001">
+                          <td>D001</td>
+                          <td>Dr. Badram</td>
+                          <td>Cardiologist</td>
+                          <td>badram.w@hospital.com</td>
+                          <td>+91 956787654</td>
+                          <td><span class="status-badge status-active">Active</span></td>
+                          <td>
+                            <button class="btn btn-sm btn-info btn-action" onclick="viewDetails('doctor', 'D001')" data-bs-toggle="modal" data-bs-target="#detailsModal">
+                              View
+                            </button>
+                          </td>
+                        </tr>
+                        <tr data-user-id="D002">
+                          <td>D002</td>
+                          <td>Dr. Michael</td>
+                          <td>Pediatrician</td>
+                          <td>michael.b@hospital.com</td>
+                          <td>+91 9876543</td>
+                          <td><span class="status-badge status-active">Active</span></td>
+                          <td>
+                            <button class="btn btn-sm btn-info btn-action" onclick="viewDetails('doctor', 'D002')" data-bs-toggle="modal" data-bs-target="#detailsModal">
+                              View
+                            </button>
+                          </td>
+                        </tr>
+                        <tr data-user-id="D003">
+                          <td>D003</td>
+                          <td>Dr. Babu</td>
+                          <td>Dermatologist</td>
+                          <td>babu.d@hospital.com</td>
+                          <td>+91 73456765</td>
+                          <td><span class="status-badge status-active">Active</span></td>
+                          <td>
+                            <button class="btn btn-sm btn-info btn-action" onclick="viewDetails('doctor', 'D003')" data-bs-toggle="modal" data-bs-target="#detailsModal">
+                              View
+                            </button>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+
+                <!-- Admins Tab -->
+                <div class="tab-pane fade" id="admins">
+                  <div class="row table-header-row">
+                    <div class="col-md-6">
+                      <div class="search-container">
+                        <input type="text" class="form-control" id="searchAdmin" 
+                               placeholder="Search admins..." onkeyup="filterAdmins()">
+                        <i class="bi bi-search"></i>
+                      </div>
+                    </div>
+                    <div class="col-md-6 text-md-end text-start">
+                      <a href="adminAddAdmin.html" class="btn btn-success">
+                        <i class="bi bi-plus-circle"></i> Add Admin
+                      </a>
+                    </div>
+                  </div>
+
+                  <!-- Admins Table -->
+                  <div class="table-responsive">
+                    <table class="table table-hover">
+                      <thead>
+                        <tr>
+                          <th>Admin ID</th>
+                          <th>Name</th>
+                          <th>Email</th>
+                          <th>Role</th>
+                          <th>Status</th>
+                          <th>Actions</th>
+                        </tr>
+                      </thead>
+                      <tbody id="adminsTableBody">
+                        <tr data-user-id="A001">
+                          <td>A001</td>
+                          <td>Dhanush</td>
+                          <td>esdhanush@gmail.com</td>
+                          <td>Super Admin</td>
+                          <td><span class="status-badge status-active">Active</span></td>
+                          <td>
+                            <button class="btn btn-sm btn-info btn-action" onclick="viewDetails('admin', 'A001')" data-bs-toggle="modal" data-bs-target="#detailsModal">
+                              View
+                            </button>
+                          </td>
+                        </tr>
+                        <tr data-user-id="A002">
+                          <td>A002</td>
+                          <td>John Admin</td>
+                          <td>john.admin@medicore.com</td>
+                          <td>Admin</td>
+                          <td><span class="status-badge status-active">Active</span></td>
+                          <td>
+                            <button class="btn btn-sm btn-info btn-action" onclick="viewDetails('admin', 'A002')" data-bs-toggle="modal" data-bs-target="#detailsModal">
+                              View
+                            </button>
+                          </td>
+                        </tr>
+                        <tr data-user-id="A003">
+                          <td>A003</td>
+                          <td>Sarah Manager</td>
+                          <td>sarah.m@medicore.com</td>
+                          <td>Admin</td>
+                          <td><span class="status-badge status-inactive">Inactive</span></td>
+                          <td>
+                            <button class="btn btn-sm btn-info btn-action" onclick="viewDetails('admin', 'A003')" data-bs-toggle="modal" data-bs-target="#detailsModal">
+                              View
+                            </button>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Details Modal -->
+  <div class="modal fade" id="detailsModal" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">User Details</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body" id="modalBody">
+          <!-- Content will be loaded dynamically -->
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Back to top button -->
+  <a href="#" class="back-to-top d-flex align-items-center justify-content-center">
+    <i class="bi bi-arrow-up-short"></i>
+  </a>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+
+  <!-- Custom JavaScript -->
+  <script>
+    // Search functionality for patients
+    function filterPatients() {
+      const searchInput = document.getElementById('searchPatient').value.toLowerCase();
+      const tableRows = document.querySelectorAll('#patientsTableBody tr');
+      let visibleCount = 0;
+
+      tableRows.forEach(row => {
+        const text = row.textContent.toLowerCase();
+        if (text.includes(searchInput)) {
+          row.style.display = '';
+          visibleCount++;
+        } else {
+          row.style.display = 'none';
+        }
+      });
+
+      // Update patient count
+      document.getElementById('patientCount').textContent = visibleCount;
+    }
+
+    // Search functionality for doctors
+    function filterDoctors() {
+      const searchInput = document.getElementById('searchDoctor').value.toLowerCase();
+      const tableRows = document.querySelectorAll('#doctorsTableBody tr');
+
+      tableRows.forEach(row => {
+        const text = row.textContent.toLowerCase();
+        if (text.includes(searchInput)) {
+          row.style.display = '';
+        } else {
+          row.style.display = 'none';
+        }
+      });
+    }
+
+    // Search functionality for admins
+    function filterAdmins() {
+      const searchInput = document.getElementById('searchAdmin').value.toLowerCase();
+      const tableRows = document.querySelectorAll('#adminsTableBody tr');
+
+      tableRows.forEach(row => {
+        const text = row.textContent.toLowerCase();
+        if (text.includes(searchInput)) {
+          row.style.display = '';
+        } else {
+          row.style.display = 'none';
+        }
+      });
+    }
+
+    // View details function
+    function viewDetails(userType, userId) {
+      let content = '';
+      
+      if (userType === 'patient') {
+        // Mock patient data
+        const patientData = {
+          'P001': {
+            name: 'Srinu',
+            email: 'srinu@email.com',
+            phone: '+91 897656788',
+            address: 'Hyderabad',
+            dob: '15-May-1985',
+            registeredDate: '01-Jan-2024',
+            lastVisit: '15-Feb-2024',
+            status: 'Active'
+          },
+          'P002': {
+            name: 'Smith',
+            email: 'smith@email.com',
+            phone: '+91 92345678',
+            address: 'Mumbai',
+            dob: '22-Aug-1990',
+            registeredDate: '05-Jan-2024',
+            lastVisit: '20-Feb-2024',
+            status: 'Active'
+          },
+          'P003': {
+            name: 'Robert',
+            email: 'robert.j@email.com',
+            phone: '+91 78999552',
+            address: 'Delhi',
+            dob: '10-Mar-1978',
+            registeredDate: '10-Jan-2024',
+            lastVisit: '10-Feb-2024',
+            status: 'Inactive'
+          }
+        };
+        
+        const patient = patientData[userId];
+        content = `
+          <h6>Patient Information</h6>
+          <div class="user-info-grid">
+            <div>
+              <div class="info-item"><strong>Patient ID:</strong> ${userId}</div>
+              <div class="info-item"><strong>Name:</strong> ${patient.name}</div>
+              <div class="info-item"><strong>Email:</strong> ${patient.email}</div>
+              <div class="info-item"><strong>Phone:</strong> ${patient.phone}</div>
+            </div>
+            <div>
+              <div class="info-item"><strong>Date of Birth:</strong> ${patient.dob}</div>
+              <div class="info-item"><strong>Address:</strong> ${patient.address}</div>
+              <div class="info-item"><strong>Registered Date:</strong> ${patient.registeredDate}</div>
+              <div class="info-item"><strong>Last Visit:</strong> ${patient.lastVisit}</div>
+            </div>
+          </div>
+          
+          <h6>Account Management</h6>
+          <div class="info-item">
+            <strong>Account Status:</strong> 
+            <span class="status-badge status-${patient.status.toLowerCase()}">${patient.status}</span>
+            ${patient.status === 'Active' ? 
+              '<button class="btn btn-sm btn-warning ms-3" onclick="confirmDisableAccount(\'patient\', \'' + userId + '\')">Disable Account</button>' : 
+              '<button class="btn btn-sm btn-success ms-3" onclick="confirmEnableAccount(\'patient\', \'' + userId + '\')">Enable Account</button>'
+            }
+          </div>
+        `;
+      } else if (userType === 'doctor') {
+        // Mock doctor data
+        const doctorData = {
+          'D001': {
+            name: 'Dr. Badram',
+            email: 'badram.w@hospital.com',
+            phone: '+91 956787654',
+            specialization: 'Cardiologist',
+            qualifications: ['MBBS', 'MD - Cardiology'],
+            languages: 'English, Hindi, Tamil',
+            location: 'Mumbai, Maharashtra',
+            joinDate: '15 Jan 2024',
+            status: 'Active'
+          },
+          'D002': {
+            name: 'Dr. Michael',
+            email: 'michael.b@hospital.com',
+            phone: '+91 9876543',
+            specialization: 'Pediatrician',
+            qualifications: ['MBBS', 'MD - Pediatrics'],
+            languages: 'English, Hindi',
+            location: 'Delhi',
+            joinDate: '10 Feb 2024',
+            status: 'Active'
+          },
+          'D003': {
+            name: 'Dr. Babu',
+            email: 'babu.d@hospital.com',
+            phone: '+91 73456765',
+            specialization: 'Dermatologist',
+            qualifications: ['MBBS', 'MD - Dermatology'],
+            languages: 'English, Telugu, Hindi',
+            location: 'Hyderabad',
+            joinDate: '20 Jan 2024',
+            status: 'Active'
+          }
+        };
+        
+        const doctor = doctorData[userId];
+        content = `
+          <h6>Doctor Information</h6>
+          <div class="user-info-grid">
+            <div>
+              <div class="info-item"><strong>Doctor ID:</strong> ${userId}</div>
+              <div class="info-item"><strong>Name:</strong> ${doctor.name}</div>
+              <div class="info-item"><strong>Email:</strong> ${doctor.email}</div>
+              <div class="info-item"><strong>Phone:</strong> ${doctor.phone}</div>
+              
+            </div>
+            <div>
+             <div class="info-item"><strong>Specialization:</strong> ${doctor.specialization}</div>
+              <div class="info-item"><strong>Location:</strong> ${doctor.location}</div>
+              <div class="info-item"><strong>Languages:</strong> ${doctor.languages}</div>
+              <div class="info-item"><strong>Joined:</strong> ${doctor.joinDate}</div>
+            </div>
+          </div>
+          
+          <h6>Qualifications</h6>
+          <ul>${doctor.qualifications.map(q => `<li>${q}</li>`).join('')}</ul>
+          
+          <h6>Account Management</h6>
+          <div class="info-item">
+            <strong>Account Status:</strong> 
+            <span class="status-badge status-${doctor.status.toLowerCase()}">${doctor.status}</span>
+            ${doctor.status === 'Active' ? 
+              '<button class="btn btn-sm btn-warning ms-3" onclick="confirmDisableAccount(\'doctor\', \'' + userId + '\')">Disable Account</button>' : 
+              '<button class="btn btn-sm btn-success ms-3" onclick="confirmEnableAccount(\'doctor\', \'' + userId + '\')">Enable Account</button>'
+            }
+          </div>
+        `;
+      } else if (userType === 'admin') {
+        // Mock admin data
+        const adminData = {
+          'A001': {
+            name: 'Dhanush',
+            email: 'esdhanush@gmail.com',
+            role: 'Super Admin',
+                        department: 'System Administration',
+            phone: '+91 9876543210',
+            joinDate: '01 Jan 2024',
+            lastLogin: '25 Feb 2024 10:30 AM',
+            permissions: ['All System Access', 'User Management', 'System Configuration', 'Reports'],
+            status: 'Active'
+          },
+          'A002': {
+            name: 'John Admin',
+            email: 'john.admin@medicore.com',
+            role: 'Admin',
+            department: 'User Management',
+            phone: '+91 9876543211',
+            joinDate: '15 Jan 2024',
+            lastLogin: '24 Feb 2024 3:45 PM',
+            permissions: ['User Management', 'Reports', 'Appointment Management'],
+            status: 'Active'
+          },
+          'A003': {
+            name: 'Sarah Manager',
+            email: 'sarah.m@medicore.com',
+            role: 'Admin',
+            department: 'Operations',
+            phone: '+91 9876543212',
+            joinDate: '20 Jan 2024',
+            lastLogin: '20 Feb 2024 11:00 AM',
+            permissions: ['User Management', 'Reports'],
+            status: 'Inactive'
+          }
+        };
+        
+        const admin = adminData[userId];
+        content = `
+          <h6>Admin Information</h6>
+          <div class="user-info-grid">
+            <div>
+              <div class="info-item"><strong>Admin ID:</strong> ${userId}</div>
+              <div class="info-item"><strong>Name:</strong> ${admin.name}</div>
+              <div class="info-item"><strong>Email:</strong> ${admin.email}</div>
+              <div class="info-item"><strong>Phone:</strong> ${admin.phone}</div>
+            </div>
+            <div>
+              <div class="info-item"><strong>Role:</strong> ${admin.role}</div>
+              <div class="info-item"><strong>Department:</strong> ${admin.department}</div>
+              <div class="info-item"><strong>Joined:</strong> ${admin.joinDate}</div>
+              <div class="info-item"><strong>Last Login:</strong> ${admin.lastLogin}</div>
+            </div>
+          </div>
+          
+          <h6>Permissions</h6>
+          <ul>${admin.permissions.map(p => `<li>${p}</li>`).join('')}</ul>
+          
+          <h6>Account Management</h6>
+          <div class="info-item">
+            <strong>Account Status:</strong> 
+            <span class="status-badge status-${admin.status.toLowerCase()}">${admin.status}</span>
+            ${admin.role !== 'Super Admin' ? 
+              (admin.status === 'Active' ? 
+                '<button class="btn btn-sm btn-warning ms-3" onclick="confirmDisableAccount(\'admin\', \'' + userId + '\')">Disable Account</button>' : 
+                '<button class="btn btn-sm btn-success ms-3" onclick="confirmEnableAccount(\'admin\', \'' + userId + '\')">Enable Account</button>'
+              ) : 
+              '<span class="text-muted ms-3">(Cannot modify Super Admin account)</span>'
+            }
+          </div>
+        `;
+      }
+      
+      document.getElementById('modalBody').innerHTML = content;
+    }
+
+    // Confirm disable account - UPDATED FUNCTION
+    function confirmDisableAccount(userType, userId) {
+      if (confirm(`Are you sure you want to disable this ${userType} account?`)) {
+        // Update the status in the table
+        const row = document.querySelector(`tr[data-user-id="${userId}"]`);
+        if (row) {
+          const statusBadge = row.querySelector('.status-badge');
+          if (statusBadge) {
+            statusBadge.textContent = 'Inactive';
+            statusBadge.classList.remove('status-active');
+            statusBadge.classList.add('status-inactive');
+          }
+        }
+        
+        // Update the modal content to reflect the change
+        const modalStatusBadge = document.querySelector('#modalBody .status-badge');
+        const modalButton = document.querySelector('#modalBody button.btn-warning');
+        
+        if (modalStatusBadge && modalButton) {
+          modalStatusBadge.textContent = 'Inactive';
+          modalStatusBadge.classList.remove('status-active');
+          modalStatusBadge.classList.add('status-inactive');
+          
+          modalButton.textContent = 'Enable Account';
+          modalButton.classList.remove('btn-warning');
+          modalButton.classList.add('btn-success');
+          modalButton.setAttribute('onclick', `confirmEnableAccount('${userType}', '${userId}')`);
+        }
+        
+        // Show success message
+        alert(`${userType.charAt(0).toUpperCase() + userType.slice(1)} account disabled successfully!`);
+        
+        // In real implementation, make API call here
+        // Example:
+        // fetch('/api/users/disable', {
+        //   method: 'POST',
+        //   headers: { 'Content-Type': 'application/json' },
+        //   body: JSON.stringify({ userType, userId })
+        // });
+      }
+    }
+
+    // Confirm enable account - UPDATED FUNCTION
+    function confirmEnableAccount(userType, userId) {
+      if (confirm(`Are you sure you want to enable this ${userType} account?`)) {
+        // Update the status in the table
+        const row = document.querySelector(`tr[data-user-id="${userId}"]`);
+        if (row) {
+          const statusBadge = row.querySelector('.status-badge');
+          if (statusBadge) {
+            statusBadge.textContent = 'Active';
+            statusBadge.classList.remove('status-inactive');
+            statusBadge.classList.add('status-active');
+          }
+        }
+        
+        // Update the modal content to reflect the change
+        const modalStatusBadge = document.querySelector('#modalBody .status-badge');
+        const modalButton = document.querySelector('#modalBody button.btn-success');
+        
+        if (modalStatusBadge && modalButton) {
+          modalStatusBadge.textContent = 'Active';
+          modalStatusBadge.classList.remove('status-inactive');
+          modalStatusBadge.classList.add('status-active');
+          
+          modalButton.textContent = 'Disable Account';
+          modalButton.classList.remove('btn-success');
+          modalButton.classList.add('btn-warning');
+          modalButton.setAttribute('onclick', `confirmDisableAccount('${userType}', '${userId}')`);
+        }
+        
+        // Show success message
+        alert(`${userType.charAt(0).toUpperCase() + userType.slice(1)} account enabled successfully!`);
+        
+        // In real implementation, make API call here
+        // Example:
+        // fetch('/api/users/enable', {
+        //   method: 'POST',
+        //   headers: { 'Content-Type': 'application/json' },
+        //   body: JSON.stringify({ userType, userId })
+        // });
+      }
+    }
+
+    // Sidebar toggle functionality
+    document.querySelector('.toggle-sidebar-btn').addEventListener('click', function(e) {
+      document.querySelector('body').classList.toggle('toggle-sidebar');
+    });
+
+    // Initialize tooltips
+    var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+    var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+      return new bootstrap.Tooltip(tooltipTriggerEl);
+    });
+
+    // Tab persistence - remember which tab was active
+    document.addEventListener('DOMContentLoaded', function() {
+      // Get the last active tab from localStorage
+      const lastActiveTab = localStorage.getItem('activeUserTab') || 'patients-tab';
+      const tabElement = document.getElementById(lastActiveTab);
+      if (tabElement) {
+        const tab = new bootstrap.Tab(tabElement);
+        tab.show();
+      }
+
+      // Save active tab to localStorage when changed
+      const tabElements = document.querySelectorAll('#userTabs button[data-bs-toggle="pill"]');
+      tabElements.forEach(tab => {
+        tab.addEventListener('shown.bs.tab', function (e) {
+          localStorage.setItem('activeUserTab', e.target.id);
+        });
+      });
+    });
+
+    // Optional: Refresh the modal content when showing (for dynamic updates)
+    document.getElementById('detailsModal').addEventListener('shown.bs.modal', function (event) {
+      // Modal is fully shown
+      console.log('Modal opened');
+    });
+
+    // Optional: Handle modal close to refresh data if needed
+    document.getElementById('detailsModal').addEventListener('hidden.bs.modal', function (event) {
+      // Modal is fully closed
+      console.log('Modal closed');
+    });
+  </script>
+
+  <!-- Template Main JS File -->
+  <script src="../../assets/js/main.js"></script>
+</body>
+</html>
